@@ -1,10 +1,13 @@
 package red5pro.org.testandroidproject.tests.PublishTest;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.res.Resources;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceView;
 import android.view.View;
@@ -82,8 +85,18 @@ public class PublishTest extends TestDetailFragment {
 
         publish.publish(TestContent.GetPropertyString("stream1"), R5Stream.RecordType.Live);
 
-        if(TestContent.GetPropertyBool("video_on"))
+        if(TestContent.GetPropertyBool("video_on")) {
             cam.startPreview();
+        }
+
+        final ActivityManager activityManager = (ActivityManager) this.getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        preview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int value = activityManager.getLargeMemoryClass();
+                return true;
+            }
+        });
 
         return rootView;
     }

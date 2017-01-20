@@ -1,8 +1,11 @@
 package red5pro.org.testandroidproject;
 
+import android.app.ActivityManager;
+import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.WindowManager;
 import android.widget.Switch;
 
 import junit.framework.Test;
@@ -65,6 +68,9 @@ public class TestListActivity extends Activity
         // TODO: If exposing deep links into your app, handle intents here.
 
         //onItemSelected("0");
+
+//        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     /**
@@ -122,5 +128,23 @@ public class TestListActivity extends Activity
         super.onBackPressed();
 
         fragment = null;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void onTrimMemory(int level) {
+        // (5) TRIM_MEMORY_RUNNING_MODERATE
+        ActivityManager activityManager = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+        activityManager.getMemoryInfo(memoryInfo);
+        System.out.print(level);
     }
 }
