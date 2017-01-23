@@ -44,6 +44,8 @@ public class SubscribeTest extends TestDetailFragment {
                 TestContent.GetPropertyInt("port"),
                 TestContent.GetPropertyString("context"),
                 TestContent.GetPropertyFloat("buffer_time"));
+        config.setLicenseKey(TestContent.GetPropertyString("license_key"));
+
         R5Connection connection = new R5Connection(config);
 
         //setup a new stream using the connection

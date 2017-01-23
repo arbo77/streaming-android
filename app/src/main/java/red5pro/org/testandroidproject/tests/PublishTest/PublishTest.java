@@ -14,6 +14,8 @@ import com.red5pro.streaming.R5Connection;
 import com.red5pro.streaming.R5Stream;
 import com.red5pro.streaming.R5StreamProtocol;
 import com.red5pro.streaming.config.R5Configuration;
+import com.red5pro.streaming.event.R5ConnectionEvent;
+import com.red5pro.streaming.event.R5ConnectionListener;
 import com.red5pro.streaming.source.R5Camera;
 import com.red5pro.streaming.source.R5Microphone;
 import com.red5pro.streaming.view.R5VideoView;
@@ -25,7 +27,7 @@ import red5pro.org.testandroidproject.tests.TestContent;
 /**
  * Created by davidHeimann on 2/9/16.
  */
-public class PublishTest extends TestDetailFragment {
+public class PublishTest extends TestDetailFragment implements R5ConnectionListener {
     protected R5VideoView preview;
     protected R5Stream publish;
     protected Camera cam;
@@ -33,6 +35,11 @@ public class PublishTest extends TestDetailFragment {
 
     public PublishTest(){
 
+    }
+
+    @Override
+    public void onConnectionEvent(R5ConnectionEvent event) {
+        //
     }
 
     @Override
@@ -46,10 +53,14 @@ public class PublishTest extends TestDetailFragment {
                                                     TestContent.GetPropertyInt("port"),
                                                     TestContent.GetPropertyString("context"),
                                                     TestContent.GetPropertyFloat("buffer_time"));
+        config.setLicenseKey(TestContent.GetPropertyString("license_key"));
+
         R5Connection connection = new R5Connection(config);
 
         //setup a new stream using the connection
         publish = new R5Stream(connection);
+
+        publish.setListener(this);
 
         //show all logging
         publish.setLogLevel(R5Stream.LOG_LEVEL_DEBUG);
