@@ -39,7 +39,7 @@ public class PublishTest extends TestDetailFragment implements R5ConnectionListe
 
     @Override
     public void onConnectionEvent(R5ConnectionEvent event) {
-        //
+        Log.d("Publisher", ":onConnectionEvent " + event.name());
     }
 
     @Override
