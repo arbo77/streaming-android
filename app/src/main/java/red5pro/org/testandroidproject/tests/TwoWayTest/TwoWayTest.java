@@ -48,10 +48,14 @@ public class TwoWayTest extends PublishTest {
                 TestContent.GetPropertyInt("port"),
                 TestContent.GetPropertyString("context"),
                 TestContent.GetPropertyFloat("buffer_time"));
+        config.setLicenseKey(TestContent.GetPropertyString("license_key"));
+
         R5Connection connection = new R5Connection(config);
 
         //setup a new stream using the connection
         publish = new R5Stream(connection);
+
+        publish.setListener(this);
 
         //show all logging
         publish.setLogLevel(R5Stream.LOG_LEVEL_DEBUG);
@@ -239,10 +243,16 @@ public class TwoWayTest extends PublishTest {
                 TestContent.GetPropertyInt("port"),
                 TestContent.GetPropertyString("context"),
                 TestContent.GetPropertyFloat("buffer_time"));
+
+        config.setLicenseKey(TestContent.GetPropertyString("license_key"));
+
         R5Connection connection = new R5Connection(config);
 
         //setup a new stream using the connection
         subscribe = new R5Stream(connection);
+
+        subscribe.client = this;
+        subscribe.setListener(this);
 
         //show all logging
         subscribe.setLogLevel(R5Stream.LOG_LEVEL_DEBUG);

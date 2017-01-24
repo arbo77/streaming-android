@@ -19,8 +19,6 @@ public class SubscribeBandwidthTest extends SubscribeTest implements R5Connectio
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        subscribe.setListener(this);
-
         overlay = new View( display.getContext() );
         FrameLayout.LayoutParams position = new FrameLayout.LayoutParams( display.getWidth(), display.getHeight() );
         position.setMargins(0, 0, 0, 0);
@@ -34,6 +32,7 @@ public class SubscribeBandwidthTest extends SubscribeTest implements R5Connectio
 
     @Override
     public void onConnectionEvent(R5ConnectionEvent r5ConnectionEvent) {
+        super.onConnectionEvent(r5ConnectionEvent);
         if ( R5ConnectionEvent.NET_STATUS.value() == r5ConnectionEvent.value() ) {
             if( r5ConnectionEvent.message == "NetStream.Play.SufficientBW" ){
                 overlay.setAlpha( 0f );

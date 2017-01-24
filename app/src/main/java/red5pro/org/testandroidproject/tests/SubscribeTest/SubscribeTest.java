@@ -44,7 +44,7 @@ public class SubscribeTest extends TestDetailFragment implements R5ConnectionLis
         return view;
     }
 
-    public void Subscribe(){
+    public void Subscribe() {
         //Create the configuration from the tests.xml
         R5Configuration config = new R5Configuration(R5StreamProtocol.RTSP,
                 TestContent.GetPropertyString("host"),
